@@ -1,39 +1,160 @@
-# Documentação de Software: Gestão SmarT
+# 📊 Gestão SmarT
 
-## Parte 1: O Ideal (Definição do MVP)
-Para o Gestão SmarT, o MVP foi planejado para focar estritamente na jornada principal de controle financeiro e detalhamento de compras em ambiente desktop.
-
-### 🎯 O que ESTÁ no escopo do MVP:
-1. Tela de Login/Cadastro com controle básico de autenticação segura do usuário no banco de dados.
-2. Painel visual unificado (Dashboard) exibindo a listagem contínua e limpa de todas as compras registradas.
-3. Formulário para lançamento rápido de novas compras (Nota Fiscal, Descrição e Data).
-4. Interface de gerenciamento interno de itens (acessada via clique duplo), permitindo inserir, listar e remover produtos avulsos (Nome, Valor, Categoria) dentro de uma compra específica.
-5. Exclusão segura em cascata, garantindo a integridade do banco relacional (ao apagar uma compra, seus itens são removidos automaticamente).
-6. Módulo analítico (BI) com geração de gráfico de barras interativo, permitindo filtrar os gastos totais por intervalo de datas e faixas de valor.
-7. Ferramenta de exportação de relatório consolidado em formato de texto simples (`.TXT`).
-8. Arquitetura de segurança básica via variáveis de ambiente (`.env`) para proteção das credenciais do PostgreSQL.
-
-### 🚫 O que NÃO ESTÁ no MVP:
-* Integração com APIs bancárias para importação automática de gastos ou extratos.
-* Leitura automatizada de Notas Fiscais via QR Code ou importação de arquivos XML.
-* Exportação de relatórios com formatação visual complexa em formato PDF ou geração de planilhas Excel nativas.
-* Controle dinâmico de estoque ou armazém (o sistema registra o que foi comprado e os valores, mas não gerencia baixas de consumo físico).
-* Sincronização em nuvem multidespositivo, aplicativo mobile ou versão em plataforma web (o escopo é estritamente aplicação Desktop local).
-* Criação de diferentes perfis de usuário com hierarquia de permissões (ex: Administrador vs. Leitor).
+> Sistema desktop para controle inteligente de despesas e inventário pessoal.
 
 ---
 
-## Parte 2: A Implementação (Guia Visual e Técnico)
-Abaixo estão os resultados do MVP construído, demonstrando a aplicação prática do escopo definido na Etapa 1.
+## 📌 Sobre o Projeto
 
-### 🛠 Tecnologias Utilizadas
-* **Linguagem:** Java.
-* **Interface:** JavaFX (Interface responsiva com suporte a Full Screen).
-* **Persistência:** PostgreSQL (via JDBC).
-* **Arquitetura:** MVC (Model-View-Controller).
+O **Gestão SmarT** é uma solução de software desenvolvida para automatizar e otimizar o controle de despesas e inventário. O objetivo é proporcionar uma interface centralizada e intuitiva para o gerenciamento de compras e o detalhamento de itens adquiridos, permitindo a análise precisa do fluxo de gastos por meio de filtros temporais e visualização gráfica.
 
-### ⚙️ Funcionalidades Técnicas Detalhadas
-* **CRUD Completo:** Criação, leitura, atualização e exclusão funcional de compras e produtos.
-* **Integridade Referencial:** Exclusão inteligente com deleção em cascata diretamente controlada pelo banco de dados.
-* **Configuração Segura:** Credenciais isoladas via arquivo `.env`, garantindo total segurança contra vazamento de senhas no repositório.
-* **Interface Industrial:** Design focado em usabilidade profissional, com barra de navegação superior (Navbar) robusta e layout responsivo que não distorce componentes.
+---
+
+## 🚀 Funcionalidades
+
+- **Autenticação segura** — Cadastro e login com validação de campos obrigatórios
+- **Recuperação de conta** — Redefinição de senha via link enviado ao e-mail cadastrado
+- **Dashboard de compras** — Listagem centralizada de todas as compras cadastradas
+- **Cadastro de compras** — Registro via Nota Fiscal, descrição e data (com calendário interativo)
+- **Gerenciamento de produtos** — Adição e remoção de itens vinculados a cada compra
+- **Relatório gráfico** — Filtro por período e faixa de valor, com total consolidado e gráfico de barras
+- **Exportação de relatórios** — Download do relatório em formato de arquivo ou encaminhamento para outro software
+- **Exclusão em cascata** — Remoção segura de compras sem deixar dados órfãos no banco
+
+---
+
+## 🛠️ Tecnologias
+
+| Camada | Tecnologia |
+|---|---|
+| Linguagem | Java |
+| Interface | JavaFX |
+| Banco de Dados | PostgreSQL (via JDBC) |
+
+---
+
+## 📐 Arquitetura e Fluxo Principal
+
+```
+Login / Cadastro
+      ↓
+Dashboard Geral (listagem de compras)
+      ↓              ↓
+Nova Compra     Relatório Gráfico
+(Nota Fiscal +   (Filtros + Gráfico
+ Produtos)        de Barras)
+```
+
+---
+
+## 🖥️ Interfaces do Sistema
+
+### Autenticação
+Tela de cadastro solicitando Nome, E-mail e Senha, com validação nativa contra campos em branco. Tela de login com opção de redirecionamento para cadastro.
+
+### Dashboard Principal
+Exibe todas as compras em uma tabela limpa. Duplo clique em uma linha abre o detalhamento dos produtos da compra. Botão de exclusão com deleção em cascata.
+
+### Cadastro de Nova Compra
+Formulário com campos para Nota Fiscal, Descrição Sumária e Data de Compra (seletor de calendário). Após salvar, o usuário é redirecionado para o gerenciamento de itens da compra.
+
+### Gerenciamento de Itens
+Grade com os produtos já cadastrados (Nome, Valor Unitário, Tipo/Categoria). Formulário integrado na base da tela para adicionar novos produtos sem sair da janela. Botão para remover item selecionado.
+
+### Relatório Gráfico
+Filtros por Data Inicial, Data Final, Valor Mínimo e Valor Máximo. Exibe o **Total no Período** e um gráfico de barras com os gastos agrupados por compra.
+
+---
+
+## 📋 Casos de Uso — Gerar Relatório
+
+**Fluxo principal:**
+1. Usuário solicita a geração de um relatório de compras
+2. Sistema exibe os filtros disponíveis (período, valor)
+3. Usuário seleciona os parâmetros desejados
+4. Sistema processa e exibe o relatório
+5. Usuário escolhe exportar ou apenas visualizar na tela
+
+**Exceção:** Caso não existam compras para o filtro selecionado, o sistema exibe o alerta *"Nenhuma compra encontrada com os parâmetros desejados"*.
+
+---
+
+## ✅ Critérios de Aceite (BDD)
+
+```gherkin
+Cenário 1: Sem compras no período
+  DADO QUE o usuário não cadastrou nenhuma compra no último mês
+  QUANDO solicitar a geração de um relatório para este período
+  ENTÃO é informado que não há compras no último mês
+
+Cenário 2: Sem compras do tipo selecionado
+  DADO QUE o usuário não cadastrou nenhuma compra do tipo "livro" no último mês
+  QUANDO solicitar a geração de um relatório filtrado por "livros"
+  ENTÃO é informado que não há compras do tipo escolhido
+
+Cenário 3: Relatório com resultados
+  DADO QUE o usuário fez 3 compras do tipo "livro" de R$ 20,00 cada
+  QUANDO solicitar a geração de um relatório para este período
+  ENTÃO são exibidos o total, os itens comprados, os valores individuais e as datas
+```
+
+---
+
+## ▶️ Como Executar
+
+### Pré-requisitos
+
+- Java 17+
+- PostgreSQL rodando localmente
+- JavaFX SDK configurado no classpath
+
+### Passos
+
+```bash
+# 1. Clone o repositório
+git clone https://github.com/Km4rcos/GestaoSmarT.git
+cd GestaoSmarT
+
+# 2. Configure o banco de dados
+# Crie um banco PostgreSQL e atualize as credenciais no arquivo de configuração
+
+# 3. Compile e execute
+# Via IDE (IntelliJ / Eclipse) com o módulo JavaFX configurado
+# ou via linha de comando com o classpath do JavaFX
+```
+
+> ⚠️ Certifique-se de configurar corretamente as variáveis de conexão com o banco (host, porta, usuário e senha) antes de executar.
+
+---
+
+## 📁 Estrutura do Projeto
+
+```
+GestaoSmarT/
+├── src/
+│   ├── controller/     # Controladores JavaFX (FXML)
+│   ├── model/          # Entidades e lógica de negócio
+│   ├── dao/            # Acesso ao banco de dados (JDBC)
+│   └── view/           # Arquivos FXML das telas
+├── resources/
+│   └── fxml/           # Layouts das interfaces
+└── README.md
+```
+
+---
+
+## 🤝 Contribuindo
+
+Contribuições são bem-vindas! Siga os passos:
+
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/minha-feature`)
+3. Commit suas alterações (`git commit -m 'feat: adiciona minha feature'`)
+4. Push para a branch (`git push origin feature/minha-feature`)
+5. Abra um Pull Request
+
+---
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
