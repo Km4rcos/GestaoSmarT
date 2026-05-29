@@ -32,32 +32,6 @@ Abaixo estão os resultados do MVP construído, demonstrando a aplicação prát
 * **Persistência:** PostgreSQL (via JDBC).
 * **Arquitetura:** MVC (Model-View-Controller).
 
-### 🖥 Guia de Interface (Capturas de Tela)
-
-#### A. Autenticação
-O sistema inicia com um módulo de login seguro, garantindo acesso restrito aos dados financeiros.
-
-* **Tela de Login:**
-![Tela de Login](caminho_da_imagem_login.png)
-
-* **Cadastro de Usuário:**
-![Cadastro de Usuário](caminho_da_imagem_cadastro_usuario.png)
-
-#### B. Dashboard Principal (Painel de Listagem)
-Esta é a tela de entrada do sistema. Exibe todas as compras cadastradas em um formato de listagem limpo e eficiente.
-![Dashboard Principal](caminho_da_imagem_dashboard.png)
-
-#### C. Fluxo de Operações
-* **Lançamento de Nova Compra:** Interface dedicada para registro de novas notas fiscais.
-![Nova Compra](caminho_da_imagem_nova_compra.png)
-
-* **Gerenciamento de Itens (Lista da Compra):** Tela acessada via clique duplo na compra, permitindo a inserção e remoção ágil de produtos vinculados.
-![Itens da Compra](caminho_da_imagem_itens_compra.png)
-
-#### D. Relatórios e BI
-* **Relatório Gráfico:** Ferramenta de análise que consolida gastos por período, utilizando gráficos de barras para visualização evolutiva.
-![Relatório Gráfico](caminho_da_imagem_relatorio.png)
-
 ### ⚙️ Funcionalidades Técnicas Detalhadas
 * **CRUD Completo:** Criação, leitura, atualização e exclusão funcional de compras e produtos.
 * **Integridade Referencial:** Exclusão inteligente com deleção em cascata diretamente controlada pelo banco de dados.
