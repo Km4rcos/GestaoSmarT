@@ -13,12 +13,10 @@ O **Gestão SmarT** é uma solução de software desenvolvida para automatizar e
 ## 🚀 Funcionalidades
 
 - **Autenticação segura** — Cadastro e login com validação de campos obrigatórios
-- **Recuperação de conta** — Redefinição de senha via link enviado ao e-mail cadastrado
 - **Dashboard de compras** — Listagem centralizada de todas as compras cadastradas
 - **Cadastro de compras** — Registro via Nota Fiscal, descrição e data (com calendário interativo)
 - **Gerenciamento de produtos** — Adição e remoção de itens vinculados a cada compra
 - **Relatório gráfico** — Filtro por período e faixa de valor, com total consolidado e gráfico de barras
-- **Exportação de relatórios** — Download do relatório em formato de arquivo ou encaminhamento para outro software
 - **Exclusão em cascata** — Remoção segura de compras sem deixar dados órfãos no banco
 
 ---
@@ -30,20 +28,6 @@ O **Gestão SmarT** é uma solução de software desenvolvida para automatizar e
 | Linguagem | Java |
 | Interface | JavaFX |
 | Banco de Dados | PostgreSQL (via JDBC) |
-
----
-
-## 📐 Arquitetura e Fluxo Principal
-
-```
-Login / Cadastro
-      ↓
-Dashboard Geral (listagem de compras)
-      ↓              ↓
-Nova Compra     Relatório Gráfico
-(Nota Fiscal +   (Filtros + Gráfico
- Produtos)        de Barras)
-```
 
 ---
 
@@ -79,27 +63,6 @@ Filtros por Data Inicial, Data Final, Valor Mínimo e Valor Máximo. Exibe o **T
 
 ---
 
-## ✅ Critérios de Aceite (BDD)
-
-```gherkin
-Cenário 1: Sem compras no período
-  DADO QUE o usuário não cadastrou nenhuma compra no último mês
-  QUANDO solicitar a geração de um relatório para este período
-  ENTÃO é informado que não há compras no último mês
-
-Cenário 2: Sem compras do tipo selecionado
-  DADO QUE o usuário não cadastrou nenhuma compra do tipo "livro" no último mês
-  QUANDO solicitar a geração de um relatório filtrado por "livros"
-  ENTÃO é informado que não há compras do tipo escolhido
-
-Cenário 3: Relatório com resultados
-  DADO QUE o usuário fez 3 compras do tipo "livro" de R$ 20,00 cada
-  QUANDO solicitar a geração de um relatório para este período
-  ENTÃO são exibidos o total, os itens comprados, os valores individuais e as datas
-```
-
----
-
 ## ▶️ Como Executar
 
 ### Pré-requisitos
@@ -119,42 +82,8 @@ cd GestaoSmarT
 # Crie um banco PostgreSQL e atualize as credenciais no arquivo de configuração
 
 # 3. Compile e execute
-# Via IDE (IntelliJ / Eclipse) com o módulo JavaFX configurado
-# ou via linha de comando com o classpath do JavaFX
+# Use o comando: mvn javafx:run
 ```
 
 > ⚠️ Certifique-se de configurar corretamente as variáveis de conexão com o banco (host, porta, usuário e senha) antes de executar.
 
----
-
-## 📁 Estrutura do Projeto
-
-```
-GestaoSmarT/
-├── src/
-│   ├── controller/     # Controladores JavaFX (FXML)
-│   ├── model/          # Entidades e lógica de negócio
-│   ├── dao/            # Acesso ao banco de dados (JDBC)
-│   └── view/           # Arquivos FXML das telas
-├── resources/
-│   └── fxml/           # Layouts das interfaces
-└── README.md
-```
-
----
-
-## 🤝 Contribuindo
-
-Contribuições são bem-vindas! Siga os passos:
-
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/minha-feature`)
-3. Commit suas alterações (`git commit -m 'feat: adiciona minha feature'`)
-4. Push para a branch (`git push origin feature/minha-feature`)
-5. Abra um Pull Request
-
----
-
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
